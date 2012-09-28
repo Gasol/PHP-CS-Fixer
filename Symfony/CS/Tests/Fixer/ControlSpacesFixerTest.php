@@ -15,14 +15,27 @@ use Symfony\CS\Fixer\ControlSpacesFixer as Fixer;
 
 class ControlSpacesFixerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testFixControlsWithSuffixBrace()
+    /**
+     * @dataProvider testFixControlsWithSuffixBraceProvider
+     */
+    public function testFixControlsWithSuffixBrace($try)
     {
         $fixer = new Fixer();
 
-        $try = 'try{';
         $tryFixed = 'try {';
         $this->assertEquals($tryFixed, $fixer->fix($this->getFileMock(), $try));
-        $this->assertEquals($tryFixed, $fixer->fix($this->getFileMock(), $tryFixed));
+    }
+
+    public function testFixControlsWithSuffixBraceProvider()
+    {
+        return array(
+            array('try{'),
+            array('try {'),
+            array("try\n{"),
+            array("try  \n  {"),
+            array("try\n\n{"),
+            array("try  \n\n  {"),
+        );
     }
 
     public function testFixControlsWithPrefixBraceAndParentheses()

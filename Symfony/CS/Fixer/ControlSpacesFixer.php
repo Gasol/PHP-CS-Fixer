@@ -90,7 +90,7 @@ class ControlSpacesFixer implements FixerInterface
             'do',
         );
 
-        return preg_replace(sprintf('/(%s)[^\S\n]*{/', implode('|', $statements)), '\\1 {', $content);
+        return preg_replace(sprintf('/(%s)[\s\n]*{/', implode('|', $statements)), '\\1 {', $content);
     }
 
     /**
